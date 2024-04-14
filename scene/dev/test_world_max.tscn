@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bppiolc4ulagg"]
+
+[ext_resource type="Script" path="res://scene/level/test_timer.gd" id="2_hfx7w"]
+[ext_resource type="PackedScene" uid="uid://dt1jjhnwvyf2w" path="res://scene/managers.tscn" id="2_kla2j"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+script = ExtResource("2_hfx7w")
+
+[node name="Managers" parent="." instance=ExtResource("2_kla2j")]
+
+[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
