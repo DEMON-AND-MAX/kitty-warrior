@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://drjggibcfbuh"]
+
+[ext_resource type="Script" path="res://zap.gd" id="1_pb0dd"]
+
+[node name="zap" type="Line2D"]
+script = ExtResource("1_pb0dd")
+MAX_TRAIL_LENGTH = 20
