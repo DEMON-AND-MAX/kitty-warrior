@@ -1,0 +1,11 @@
+res://zap.tscn
+res://zap.gd
+res://scene/dev/debug_world.tscn
+res://scene/dev/test_world_david.tscn
+res://scene/dev/trail.tscn
+res://scene/player.tscn
+res://scene/dev/trail_zap.tscn
+res://scene/dev/zap_trail.gd
+res://scene/dev/dash_trail.gd
+res://script/signals.gd
+res://script/player.gd
