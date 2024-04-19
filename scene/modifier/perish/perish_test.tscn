@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://blco2hghb4477"]
+
+[ext_resource type="Script" path="res://script/modifier/type/perish.gd" id="1_8nlwn"]
+[ext_resource type="Script" path="res://script/modifier/mod/unipolar/mod_heal.gd" id="2_d47aw"]
+
+[node name="Perish" type="Node"]
+script = ExtResource("1_8nlwn")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_d47aw")
+health = 10.0

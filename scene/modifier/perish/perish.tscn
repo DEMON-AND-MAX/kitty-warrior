@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7qsjecjf6agw"]
+
+[ext_resource type="Script" path="res://script/modifier/type/perish.gd" id="1_0u3xm"]
+
+[node name="Perish" type="Node"]
+script = ExtResource("1_0u3xm")

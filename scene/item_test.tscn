@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0ssh5pp2bsyw"]
+
+[ext_resource type="PackedScene" uid="uid://sh0ucx3qpiaq" path="res://scene/item.tscn" id="1_djy2p"]
+[ext_resource type="PackedScene" uid="uid://blco2hghb4477" path="res://scene/modifier/perish/perish_test.tscn" id="2_8p0dm"]
+
+[node name="RigidBody2D" instance=ExtResource("1_djy2p")]
+item = ExtResource("2_8p0dm")

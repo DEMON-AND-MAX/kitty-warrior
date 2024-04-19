@@ -1,12 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dpxelkkbhimvc"]
+[gd_scene load_steps=11 format=3 uid="uid://dpxelkkbhimvc"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_eo058"]
 [ext_resource type="Texture2D" uid="uid://cdt0mgmtcr2ho" path="res://asset/dev/icon.svg" id="2_j7lva"]
 [ext_resource type="Texture2D" uid="uid://cv4m1iagv5jba" path="res://asset/dev/circle.png" id="3_ooa6i"]
-[ext_resource type="Script" path="res://scene/dev/dash_trail.gd" id="4_pp0wk"]
-[ext_resource type="PackedScene" uid="uid://672w2xb24ty2" path="res://scene/dev/trail.tscn" id="4_thpwk"]
-[ext_resource type="PackedScene" uid="uid://drjggibcfbuh" path="res://zap.tscn" id="6_1ng0s"]
-[ext_resource type="Script" path="res://scene/dev/zap_trail.gd" id="6_njywt"]
+[ext_resource type="Script" path="res://scene/camera.gd" id="4_nu88y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qlg"]
 radius = 39.0
@@ -53,11 +50,12 @@ _data = {
 "melee_player_attack": SubResource("Animation_c8vm6")
 }
 
-[sub_resource type="Gradient" id="Gradient_ylf3e"]
-offsets = PackedFloat32Array(0.256667, 1)
-colors = PackedColorArray(1, 0.883333, 0, 1, 1, 0.366667, 0.24, 1)
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gykr"]
+radius = 60.0
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_eo058")
 
 [node name="player_sprite" type="Sprite2D" parent="."]
@@ -92,31 +90,15 @@ libraries = {
 "": SubResource("AnimationLibrary_4blk2")
 }
 
-[node name="trail" parent="." instance=ExtResource("4_thpwk")]
-show_behind_parent = true
-top_level = true
-z_index = -1
-width = 30.0
-begin_cap_mode = 1
-sharp_limit = 20.0
-round_precision = 3
-script = ExtResource("4_pp0wk")
-MAX_TRAIL_LENGTH = 20
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
 
-[node name="trail2" parent="." instance=ExtResource("4_thpwk")]
-visible = true
-show_behind_parent = true
-top_level = true
-z_index = -1
-width = 30.0
-gradient = SubResource("Gradient_ylf3e")
-begin_cap_mode = 1
-sharp_limit = 20.0
-round_precision = 3
-script = ExtResource("6_njywt")
-MAX_TRAIL_LENGTH = 20
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4gykr")
 
-[node name="zap" parent="." instance=ExtResource("6_1ng0s")]
-MAX_TRAIL_LENGTH = 0
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("4_nu88y")
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

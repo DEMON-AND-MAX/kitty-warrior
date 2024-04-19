@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://brlmxsbtcbs5q"]
+[gd_scene load_steps=6 format=3 uid="uid://brlmxsbtcbs5q"]
 
 [ext_resource type="PackedScene" uid="uid://dpxelkkbhimvc" path="res://scene/player.tscn" id="1_1a1ox"]
 [ext_resource type="PackedScene" uid="uid://dhmdrnua7p78f" path="res://scene/managers.tscn" id="2_su6tp"]
+[ext_resource type="PackedScene" uid="uid://sh0ucx3qpiaq" path="res://scene/item.tscn" id="3_2ajsv"]
+[ext_resource type="PackedScene" uid="uid://blco2hghb4477" path="res://scene/modifier/perish/perish_test.tscn" id="4_5xxa6"]
+[ext_resource type="PackedScene" uid="uid://cp3313j77k84j" path="res://scene/battle.tscn" id="5_avnho"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_1a1ox")]
 position = Vector2(525, 308)
 
-[node name="Managers" parent="." instance=ExtResource("2_su6tp")]
+[node name="Managers" parent="." groups=["manager"] instance=ExtResource("2_su6tp")]
+
+[node name="Item" parent="." instance=ExtResource("3_2ajsv")]
+position = Vector2(161, 151)
+item = ExtResource("4_5xxa6")
+
+[node name="Battle" parent="." instance=ExtResource("5_avnho")]
+path = "level_data/example2"

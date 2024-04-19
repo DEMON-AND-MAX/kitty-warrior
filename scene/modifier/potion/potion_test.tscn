@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://doe3lqvnubyu3"]
+
+[ext_resource type="PackedScene" uid="uid://d15pbcub18tra" path="res://scene/modifier/potion/potion.tscn" id="1_gquru"]
+[ext_resource type="Script" path="res://script/modifier/mod/bipolar/mod_health.gd" id="2_r1yy1"]
+
+[node name="Potion" instance=ExtResource("1_gquru")]
+time = 10.0
+
+[node name="Node" type="Node" parent="." index="0"]
+script = ExtResource("2_r1yy1")
+health = 10.0
