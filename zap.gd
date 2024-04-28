@@ -26,18 +26,12 @@ func _ready():
 	
 	
 func _new_position():
-	var player_direction = player.position.direction_to(get_global_mouse_position())
-	#var mult = Vector2(cos(player_direction), sin(player_direction))
-	player.position.x += player_direction.x * 100 + randi_range(-100, 100)
-	player.position.y += player_direction.y * 100 + randi_range(-100, 100)
+	if player.is_zapping:
+		player.curr_stamina_capacity -= 0.1
+		var player_direction = player.position.direction_to(get_global_mouse_position())
+		#var mult = Vector2(cos(player_direction), sin(player_direction))
+		player.position.x += player_direction.x * 100 + randi_range(-100, 100)
+		player.position.y += player_direction.y * 100 + randi_range(-100, 100)
+
+		
 	
-	
-	#zap_trail_points_queue.push_front(pos)
-	#
-	#if trail_points_queue.size() > MAX_TRAIL_LENGTH:
-		#trail_points_queue.pop_back()
-	#
-	#clear_points()
-	#
-	#for point in trail_points_queue:
-		#add_point(point)
