@@ -1,3 +1,5 @@
-res://Enemy.gd
-res://enemy.tscn
 res://scene/dev/debug_world.tscn
+res://enemy.tscn
+res://asset/dev/tile_map.tscn
+res://asset/dev/tile_map.gd
+res://asset/dev/FieldsTile20.gd
