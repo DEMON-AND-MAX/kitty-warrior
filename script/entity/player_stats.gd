@@ -9,12 +9,12 @@ enum STAT_TYPE {
 
 const WORLD_SPEED: float = 300
 
-@export var MAX_STATS: Stats
-@export var MIN_STATS: Stats
+@export var MAX_STATS: StatsThing
+@export var MIN_STATS: StatsThing
 @export var MOVE_STATS: MoveStats
 
-@export var stat_caps: Stats
-@export var stats: Stats
+@export var stat_caps: StatsThing
+@export var stats: StatsThing
 
 func get_stat(stat: STAT_TYPE, b_is_cap: bool = false):
 	match stat:

@@ -41,12 +41,12 @@ func _physics_process(delta):
 	if !is_zapping:
 		input_vector = get_input_vector()	
 	
-	velocity = input_vector * player_stats.stats.speed * player_stats.WORLD_SPEED
+	velocity = input_vector * player_stats.get_stat(PlayerStats.STAT_TYPE.SPEED) * player_stats.WORLD_SPEED
 	look_at(get_global_mouse_position())
 	rotate(30)
 	move_and_slide()
 	
-	if Input.is_action_just_pressed(\"spacebar\") and !is_dashing and !is_zapping and player_stats.stats.stamina >= player_stats.MOVE_STATS.DASH_CONSUMPTION:
+	if Input.is_action_just_pressed(\"spacebar\") and !is_dashing and !is_zapping and 1000 >= player_stats.MOVE_STATS.DASH_CONSUMPTION:
 		start_dash()
 		
 	if Input.is_action_just_pressed(\"click_right\") and !is_dashing:
@@ -112,7 +112,7 @@ func initiate_zap() -> void:
 	Signals.is_zapping_signal.emit(is_zapping)
 
 func _on_timer_timeout():
-	if dash_stamina < player_stats.stats.stamina:
+	if dash_stamina < 0:
 		dash_stamina += 1
 
 func update_stat(stat: String, value) -> void:
@@ -297,14 +297,13 @@ MAX_TRAIL_LENGTH = 20
 [node name="zap" parent="." instance=ExtResource("6_1ng0s")]
 MAX_ZAP_TRAIL_LENGTH = 20
 
-[node name="PlayerStats" type="Node" parent="."]
+[node name="PlayerStats" type="Node" parent="." node_paths=PackedStringArray("MOVE_STATS")]
 script = ExtResource("7_2k4lb")
 MAX_STATS = SubResource("Resource_haik0")
 MIN_STATS = SubResource("Resource_lltsy")
+MOVE_STATS = NodePath("")
 stat_caps = SubResource("Resource_pkbf7")
 stats = SubResource("Resource_yv65u")
-MOVE_STATS = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("9_7jqps"))
-
 
 [node name="MoveStats" type="Node" parent="PlayerStats"]
 script = ExtResource("9_7jqps")
