@@ -1,6 +1,6 @@
-music_layer,,,
+music_layer
 layer,name,path,bus
 bg,track_1,example/track_1,MUSIC
-music_track,,,
+music_track
 track,name,path,bus
 shop,track_2,track_2,MUSIC

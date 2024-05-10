@@ -1,0 +1,257 @@
+[gd_scene load_steps=21 format=3 uid="uid://dpxelkkbhimvc"]
+
+[ext_resource type="Texture2D" uid="uid://cdt0mgmtcr2ho" path="res://asset/dev/icon.svg" id="2_j7lva"]
+[ext_resource type="Texture2D" uid="uid://bxnp6t6via1hr" path="res://asset/dev/sword.png" id="2_lelqe"]
+[ext_resource type="Script" path="res://scene/dev/dash_trail.gd" id="4_pp0wk"]
+[ext_resource type="PackedScene" uid="uid://672w2xb24ty2" path="res://scene/dev/trail.tscn" id="4_thpwk"]
+[ext_resource type="PackedScene" uid="uid://drjggibcfbuh" path="res://zap.tscn" id="6_1ng0s"]
+[ext_resource type="Script" path="res://scene/dev/zap_trail.gd" id="6_njywt"]
+[ext_resource type="Script" path="res://script/entity/player_stats.gd" id="7_2k4lb"]
+[ext_resource type="Script" path="res://script/entity/stats.gd" id="8_pmupm"]
+[ext_resource type="Script" path="res://scene/dev/move_stats.gd" id="9_7jqps"]
+
+[sub_resource type="GDScript" id="GDScript_kihbk"]
+script/source = "extends CharacterBody2D
+
+@onready var animation_player = $AnimationPlayer
+
+var is_dashing = false
+var dash_stamina = 3
+var dash_timer = 0.0
+
+var is_zapping = false
+var curr_stamina_capacity = 0
+
+var b_attacked: bool = false
+
+var dash_direction = Vector2.ZERO
+
+@onready var player_stats: PlayerStats = $PlayerStats
+
+func _physics_process(delta):
+	var input_vector = Vector2.ZERO
+	if !is_dashing:
+		input_vector = get_input_vector()
+		
+	if !is_zapping:
+		input_vector = get_input_vector()	
+	
+	velocity = input_vector * player_stats.stats.speed * player_stats.WORLD_SPEED
+	look_at(get_global_mouse_position())
+	rotate(30)
+	move_and_slide()
+	
+	if Input.is_action_just_pressed(\"spacebar\") and !is_dashing and !is_zapping and player_stats.stats.stamina >= player_stats.MOVE_STATS.DASH_CONSUMPTION:
+		start_dash()
+		
+	if Input.is_action_just_pressed(\"click_right\") and !is_dashing and !is_zapping and curr_stamina_capacity >= 3:
+		initiate_zap()
+	
+	if Input.is_action_just_pressed(\"click_left\"):
+		if !b_attacked:
+			animation_player.play(\"melee_attack_1\")
+			b_attacked = true
+		else:
+			animation_player.play(\"melee_attack_2\")
+			b_attacked = false
+	
+	if is_dashing:
+		dash_timer += delta
+		if dash_timer >= player_stats.MOVE_STATS.DASH_DURATION:
+			is_dashing = false
+			Signals.is_dashing_signal.emit(is_dashing)
+			dash_timer = 0.0
+			# for velocity reset
+			velocity = Vector2.ZERO
+		else:
+			Signals.is_dashing_signal.emit(is_dashing)
+			global_position += dash_direction * player_stats.MOVE_STATS.DASH_SPEED * delta
+
+func get_input_vector() -> Vector2:
+	var input_vector = Vector2.ZERO
+	
+	if Input.is_action_pressed(\"ui_left\"):
+		input_vector.x -= 1
+	if Input.is_action_pressed(\"ui_right\"):
+		input_vector.x += 1
+	if Input.is_action_pressed(\"ui_up\"):
+		input_vector.y -= 1
+	if Input.is_action_pressed(\"ui_down\"):
+		input_vector.y += 1
+	
+	if input_vector != Vector2.ZERO:
+		input_vector = input_vector.normalized()
+	
+	return input_vector
+
+func start_dash() -> void:
+	var mouse_pos = get_global_mouse_position()
+	dash_stamina -= player_stats.MOVE_STATS.DASH_CONSUMPTION
+	dash_direction = (mouse_pos - global_position).normalized()
+	is_dashing = true
+	
+func initiate_zap() -> void: 
+	is_zapping = true
+
+func _on_timer_timeout():
+	if dash_stamina < player_stats.stats.stamina:
+		dash_stamina += 1
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qlg"]
+radius = 39.0
+height = 78.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0xe8b"]
+radius = 33.0
+height = 248.0
+
+[sub_resource type="Animation" id="Animation_mo00r"]
+resource_name = "melee_attack_1"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(4.59479, 1),
+"update": 0,
+"values": [0.785398, -2.35619]
+}
+
+[sub_resource type="Animation" id="Animation_j0i7m"]
+resource_name = "melee_attack_2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(4.5, 1),
+"update": 0,
+"values": [-2.35619, 0.785398]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4blk2"]
+_data = {
+"melee_attack_1": SubResource("Animation_mo00r"),
+"melee_attack_2": SubResource("Animation_j0i7m")
+}
+
+[sub_resource type="Gradient" id="Gradient_ylf3e"]
+offsets = PackedFloat32Array(0.256667, 1)
+colors = PackedColorArray(1, 0.883333, 0, 1, 1, 0.366667, 0.24, 1)
+
+[sub_resource type="Resource" id="Resource_haik0"]
+script = ExtResource("8_pmupm")
+health = 1000.0
+absorption = 1000.0
+damage = 1000.0
+speed = 5.0
+stamina = 500.0
+
+[sub_resource type="Resource" id="Resource_lltsy"]
+script = ExtResource("8_pmupm")
+health = 10.0
+absorption = 0.0
+damage = 1.0
+speed = 0.5
+stamina = 3.0
+
+[sub_resource type="Resource" id="Resource_pkbf7"]
+script = ExtResource("8_pmupm")
+health = 10.0
+absorption = 0.0
+damage = 1.0
+speed = 1.0
+stamina = 3.0
+
+[sub_resource type="Resource" id="Resource_yv65u"]
+script = ExtResource("8_pmupm")
+health = 10.0
+absorption = 0.0
+damage = 1.0
+speed = 1.0
+stamina = 3.0
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 0
+script = SubResource("GDScript_kihbk")
+
+[node name="player_sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.664062, 0.65625)
+texture = ExtResource("2_j7lva")
+metadata/_edit_lock_ = true
+
+[node name="player_collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_13qlg")
+debug_color = Color(0.211765, 0.556863, 0.847059, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -2.35619
+scale = Vector2(0.242188, 0.242188)
+texture = ExtResource("2_lelqe")
+offset = Vector2(400, -400)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+position = Vector2(408.752, -408.753)
+rotation = 0.785398
+scale = Vector2(4.12903, 4.12903)
+shape = SubResource("CapsuleShape2D_0xe8b")
+debug_color = Color(0.678431, 0.403922, 0.772549, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4blk2")
+}
+
+[node name="trail" parent="." instance=ExtResource("4_thpwk")]
+show_behind_parent = true
+top_level = true
+z_index = -1
+width = 30.0
+begin_cap_mode = 1
+sharp_limit = 20.0
+round_precision = 3
+script = ExtResource("4_pp0wk")
+MAX_TRAIL_LENGTH = 20
+
+[node name="trail2" parent="." instance=ExtResource("4_thpwk")]
+show_behind_parent = true
+top_level = true
+z_index = -1
+width = 30.0
+gradient = SubResource("Gradient_ylf3e")
+begin_cap_mode = 1
+sharp_limit = 20.0
+round_precision = 3
+script = ExtResource("6_njywt")
+MAX_TRAIL_LENGTH = 20
+
+[node name="zap" parent="." instance=ExtResource("6_1ng0s")]
+MAX_TRAIL_LENGTH = 0
+
+[node name="PlayerStats" type="Node" parent="." node_paths=PackedStringArray("MOVE_STATS")]
+script = ExtResource("7_2k4lb")
+MAX_STATS = SubResource("Resource_haik0")
+MIN_STATS = SubResource("Resource_lltsy")
+MOVE_STATS = NodePath("MoveStats")
+stat_caps = SubResource("Resource_pkbf7")
+stats = SubResource("Resource_yv65u")
+
+[node name="MoveStats" type="Node" parent="PlayerStats"]
+script = ExtResource("9_7jqps")
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

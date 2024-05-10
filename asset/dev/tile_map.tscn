@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnenuny0opd4m"]
+
+[ext_resource type="Script" path="res://asset/dev/tile_map.gd" id="1_6a2ak"]
+[ext_resource type="Texture2D" uid="uid://bob1p1oven6cy" path="res://asset/tilemap/FieldsTile_20.png" id="2_8qmdv"]
+[ext_resource type="Script" path="res://asset/dev/FieldsTile20.gd" id="3_i3waa"]
+
+[sub_resource type="TileSet" id="TileSet_4oo12"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = SubResource("TileSet_4oo12")
+rendering_quadrant_size = 100
+format = 2
+script = ExtResource("1_6a2ak")
+
+[node name="FieldsTile20" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_8qmdv")
+script = ExtResource("3_i3waa")

@@ -2,8 +2,6 @@ extends Node
 
 @onready var asset_preload_manager = $"../AssetPreloadManager"
 
-#enum _music_state {SILENT, MUSIC_LAYER, MUSIC_TRACK}
-
 const _category_list = [
 	"music_layer", "music_track"
 ]
@@ -56,7 +54,9 @@ func _play_music_track(track: String) -> void:
 	if currently_playing:
 		currently_playing.stop()
 	currently_playing = _find_audio_player("music_track", track)
+	currently_playing.volume_db = -12
 	currently_playing.play()
 
 func _find_audio_player(category: String, key: String) -> AudioStreamPlayer:
+	print(asset_dict[category])
 	return asset_dict[category].get(key)

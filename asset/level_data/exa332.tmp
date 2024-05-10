@@ -1,0 +1,10 @@
+lvl1,,,
+spawner,enemy,amount,time
+1,enemy1,10,1
+2,enemy2,5,0.2
+3,enemy3,2,5
+lvl2,,,
+spawner,enemy,amount,time
+1,enemy1,5,0.5
+2,enemy1,5,0.5
+3,enemy1,5,0.5

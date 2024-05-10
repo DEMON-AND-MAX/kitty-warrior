@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbvtrrts1ebh5"]
+
+[ext_resource type="PackedScene" uid="uid://cp3313j77k84j" path="res://scene/battle.tscn" id="1_kvh6q"]
+[ext_resource type="PackedScene" uid="uid://c86tqmbq2g83i" path="res://scene/enemy.tscn" id="2_fnxd5"]
+
+[node name="Battle" instance=ExtResource("1_kvh6q")]
+
+[node name="1" parent="SpawnerMarker" index="0"]
+position = Vector2(-341, 769)
+enemy_instance = ExtResource("2_fnxd5")
+
+[node name="2" parent="SpawnerMarker" index="1"]
+position = Vector2(1341, -224)
+enemy_instance = ExtResource("2_fnxd5")
+
+[node name="3" parent="SpawnerMarker" index="2"]
+position = Vector2(-649, -538)
+enemy_instance = ExtResource("2_fnxd5")

@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Signals="*res://script/signals.gd"
-Functions="*res://script/functions.gd"
+Signals="*res://script/singleton/signals.gd"
+Functions="*res://script/singleton/functions.gd"
+ModifierFactory="*res://script/singleton/modifier_factory.gd"
 
 [input]
 
@@ -69,3 +70,7 @@ click_right={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

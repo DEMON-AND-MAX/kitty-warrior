@@ -32,6 +32,3 @@ func _new_position():
 		#var mult = Vector2(cos(player_direction), sin(player_direction))
 		player.position.x += player_direction.x * 100 + randi_range(-100, 100)
 		player.position.y += player_direction.y * 100 + randi_range(-100, 100)
-
-		
-	

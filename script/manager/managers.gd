@@ -6,3 +6,6 @@ extends Node
 
 func get_level() -> String:
 	return level
+
+func _ready():
+	Signals.play_music_track.emit("shop")

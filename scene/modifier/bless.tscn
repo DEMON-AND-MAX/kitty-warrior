@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm7mk4fnc6cmw"]
+
+[ext_resource type="Script" path="res://script/modifier/type/bless.gd" id="1_x2ijh"]
+
+[node name="Bless" type="Node"]
+script = ExtResource("1_x2ijh")

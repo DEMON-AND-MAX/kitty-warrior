@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3q4xwhqcdhty"]
+
+[ext_resource type="PackedScene" uid="uid://c7qsjecjf6agw" path="res://scene/modifier/perish.tscn" id="1_2tbdb"]
+[ext_resource type="Script" path="res://script/modifier/mod/unipolar_mod.gd" id="2_mgiia"]
+
+[node name="Perish" instance=ExtResource("1_2tbdb")]
+
+[node name="Node" type="Node" parent="." index="0"]
+script = ExtResource("2_mgiia")
+stat = "health"
+value = 3.0

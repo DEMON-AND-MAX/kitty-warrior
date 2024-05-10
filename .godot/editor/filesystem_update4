@@ -1,8 +1,4 @@
-res://scene/player.tscn
-res://script/player.gd
 res://scene/dev/debug_world.tscn
-res://scene/dev/test_world_david.tscn
-res://scene/dev/trail.tscn
-res://zap.tscn
-res://scene/dev/test_world_cipri.tscn
-res://scene/dev/zap_trail.gd
+res://scene/player.tscn
+res://script/entity/status_handler.gd
+res://script/entity/stat_immutable.gd

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://beg8ncg41nmf0"]
+
+[ext_resource type="PackedScene" uid="uid://sh0ucx3qpiaq" path="res://scene/item.tscn" id="1_2b13b"]
+[ext_resource type="PackedScene" uid="uid://3q4xwhqcdhty" path="res://scene/modifier/perish/perish_health_10.tscn" id="2_0v4rv"]
+[ext_resource type="Texture2D" uid="uid://cudf5dhfqd8x7" path="res://asset/dev/potions.png" id="3_8qqfe"]
+
+[node name="RigidBody2D" instance=ExtResource("1_2b13b")]
+item = ExtResource("2_0v4rv")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_8qqfe")
+region_enabled = true
+region_rect = Rect2(160, 5, 65, 70)
+region_filter_clip_enabled = true

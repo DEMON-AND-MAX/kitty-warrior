@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://c86tqmbq2g83i"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_1odif"]
+[ext_resource type="Texture2D" uid="uid://bmuwgfcs4plac" path="res://asset/dev/momo_idle_shadow.png" id="2_vc8ju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2an4w"]
+size = Vector2(46, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e68xn"]
+atlas = ExtResource("2_vc8ju")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmvtd"]
+atlas = ExtResource("2_vc8ju")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03inx"]
+atlas = ExtResource("2_vc8ju")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec2ql"]
+atlas = ExtResource("2_vc8ju")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7kugw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e68xn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmvtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03inx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec2ql")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_1odif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_2an4w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -13)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7kugw")
+autoplay = "default"
+frame = 3
+frame_progress = 0.113242
