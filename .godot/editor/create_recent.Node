@@ -1,10 +1,3 @@
-Button
-VBoxContainer
-MarginContainer
-MenuBar
-TextureRect
-ColorRect
-ProgressBar
 AudioStreamPlayer
 AudioStreamPlayer2D
 AnimatedSprite2D
@@ -13,3 +6,10 @@ CollisionShape2D
 Area2D
 Node
 Camera2D
+Sprite2D
+CharacterBody2D
+MoveStats
+PlayerStats
+Line2D
+Marker2D
+Timer

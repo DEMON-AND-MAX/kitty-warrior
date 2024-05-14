@@ -1,1 +1,12 @@
-res://scene/main_menu.tscn
+res://scene/player.tscn
+res://script/entity/player_stats.gd
+res://scene/item.tscn
+res://scene/battle.tscn
+res://scene/spawner.tscn
+res://scene/managers.tscn
+res://scene/dev/debug_world.tscn
+res://scene/enemy.tscn
+res://scene/item_heal.tscn
+res://scene/modifier/perish.tscn
+res://scene/modifier/perish/perish_health_10.tscn
+res://battle_test.tscn

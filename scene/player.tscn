@@ -297,10 +297,11 @@ MAX_TRAIL_LENGTH = 20
 [node name="zap" parent="." instance=ExtResource("6_1ng0s")]
 MAX_ZAP_TRAIL_LENGTH = 20
 
-[node name="PlayerStats" type="Node" parent="."]
+[node name="PlayerStats" type="Node" parent="." node_paths=PackedStringArray("MOVE_STATS")]
 script = ExtResource("7_2k4lb")
 MAX_STATS = SubResource("Resource_haik0")
 MIN_STATS = SubResource("Resource_lltsy")
+MOVE_STATS = NodePath("")
 stat_caps = SubResource("Resource_pkbf7")
 stats = SubResource("Resource_yv65u")
 
